@@ -1,6 +1,7 @@
 import { h, Component } from "preact";
 import style from "./style";
 import Button from "../../components/button/index.js";
+import { api } from "../../config";
 
 export default class Home extends Component {
   state = {
@@ -28,11 +29,24 @@ export default class Home extends Component {
 
   submitForm = e => {
     e.preventDefault();
+    fetch(`${api}/speaker-submission`, {
+      method: 'post',
+      body: JSON.stringify(this.state.submissionForm)
+    }).then(function(response) {
+      console.log("post res is", response);
+      return response.json();
+    }).then(function(data) {
+      console.log("incoming data is", data);
+    });
+
     console.log(this.state.submissionForm);
   };
 
+
+  // -- Sub views --
+
   // displays the FAQ questions when faqOpen is true.
-  renderFaq = () => (
+  faqView = () => (
     <section class="bg-near-white bb bt b--light-gray mv4 pa4">
       <div class="w-70 center">
         <p class="i">
@@ -54,7 +68,7 @@ export default class Home extends Component {
     </section>
   );
 
-  const submissionFormView = () => {
+  submissionFormView = () => {
     const { email, name, topics, bio } = this.state.submissionForm;
     return (
       <form class="flex flex-column mv5 w-50 center" onSubmit={this.submitForm}>
@@ -98,8 +112,9 @@ export default class Home extends Component {
     );
   };
 
-  render() {
+  // --
 
+  render() {
     return (
       <div class={style.home}>
         {/* SECTION: Big hero Copy Text + buttons */}
@@ -127,11 +142,16 @@ export default class Home extends Component {
         <section class="pv4 center">
           <h1 class="f1 lh-title tc">I'd like to give a talk!</h1>
           <p class="w-50 center tc">
-            Awesome. Feel free to read our <a onClick={() => this.toggleFaq()}>FAQ</a> before submitting your info.
+            Awesome. Feel free to read our
+            {" "}
+            <a onClick={() => this.toggleFaq()}>FAQ</a>
+            {" "}
+            before submitting your info.
           </p>
 
-          {this.state.faqOpen && this.renderFaq()}
-          <SubmissionFormView />
+          {this.state.faqOpen && this.faqView()}
+          {this.submissionFormView()}
+
         </section>
 
       </div>
