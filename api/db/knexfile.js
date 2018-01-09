@@ -1,3 +1,7 @@
+const path = require("path");
+
+const dbPath = path.join(__dirname, '../db/dev.sqlite3');
+
 module.exports = {
 
   development: {
@@ -5,7 +9,7 @@ module.exports = {
     connection: {
       // this is brittle but fine for now.
       // Just don't move where we init the db from without changing this:
-      filename: '../db/dev.sqlite3',
+      filename: dbPath,
       useNullAsDefault: true
     }
   },

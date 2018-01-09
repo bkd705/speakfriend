@@ -1,7 +1,7 @@
 import { h, Component } from "preact";
 import style from "./style";
 import Button from "../../components/button/index.js";
-import { api } from "../../config";
+import { POST } from "../../network";
 
 export default class Home extends Component {
   state = {
@@ -27,23 +27,9 @@ export default class Home extends Component {
     });
   };
 
-  submitForm = e => {
+  submitForm = async e => {
     e.preventDefault();
-    fetch(`${api}/speaker-submission`, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state.submissionForm)
-    }).then(function(response) {
-      console.log("post res is", response);
-      return response.json();
-    }).then(function(data) {
-      console.log("incoming data is", data);
-    });
-
-    console.log(this.state.submissionForm);
+    const rdata = await POST("speaker-submission", this.state.submissionForm);
   };
 
 

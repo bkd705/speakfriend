@@ -1,6 +1,6 @@
 const Koa = require("koa");
 const logger = require("koa-logger");
-const cors = require('@koa/cors');
+const cors = require("@koa/cors");
 const router = require("koa-router")();
 const bodyParser = require("koa-bodyparser");
 const app = new Koa();
@@ -26,14 +26,16 @@ app.use(router.routes());
 // -- Handlers -----------------------------------------------------------------
 
 async function createTalkProposal(ctx) {
-  console.log(ctx.request.body);
+  const speakerSubmissionForm = ctx.request.body;
+  // LEAVING OFF: return data is empty + make sure speakerSubmission Form has correct fields.
+  const rdata = await db.speaker.createProposal(speakerSubmissionForm);
   // submit to db and send back a success / failure res.
-  ctx.body = { data: "TODO" };
+  ctx.body = { data: rdata };
 }
 
 // I don't like these names yet.
 async function getTalkProposals(ctx) {
-  const proposals = await db("submissions").select("*");
+  const proposals = await db.speaker.getProposals();
   ctx.body = {
     data: proposals
   };
