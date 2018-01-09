@@ -31,6 +31,10 @@ export default class Home extends Component {
     e.preventDefault();
     fetch(`${api}/speaker-submission`, {
       method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(this.state.submissionForm)
     }).then(function(response) {
       console.log("post res is", response);

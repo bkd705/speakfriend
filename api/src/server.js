@@ -1,5 +1,6 @@
 const Koa = require("koa");
 const logger = require("koa-logger");
+const cors = require('@koa/cors');
 const router = require("koa-router")();
 const bodyParser = require("koa-bodyparser");
 const app = new Koa();
@@ -9,6 +10,7 @@ const db = require("./db");
 
 app.use(bodyParser());
 app.use(logger());
+app.use(cors());
 
 // -- Routes -------------------------------------------------------------------
 
@@ -24,6 +26,7 @@ app.use(router.routes());
 // -- Handlers -----------------------------------------------------------------
 
 async function createTalkProposal(ctx) {
+  console.log(ctx.request.body);
   // submit to db and send back a success / failure res.
   ctx.body = { data: "TODO" };
 }
