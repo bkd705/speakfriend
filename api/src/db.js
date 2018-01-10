@@ -6,7 +6,6 @@
 const knexfile = require("../db/knexfile.js");
 const knex = require("knex")(knexfile.development);
 
-
 // speaker queries
 const speaker = {
   getProposals() {
@@ -14,10 +13,9 @@ const speaker = {
   },
 
   createProposal(payload) {
-    return knex("submissions").insert(payload)
+    return knex("submissions").insert(payload);
   }
 };
-
 
 module.exports = {
   speaker

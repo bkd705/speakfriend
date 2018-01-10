@@ -15,9 +15,12 @@ router
   .get(`${api}/submissions`, getTalkProposals)
   .post(`${api}/speaker-submission`, createTalkProposal);
 
+// -- Middleware ---------------------------------------------------------------
+/* NOTE: beware the order of middleware borking things. */
+
 app.use(cors());
-app.use(router.routes());
 app.use(bodyParser());
+app.use(router.routes());
 app.use(logger());
 
 // -- Handlers -----------------------------------------------------------------
@@ -28,14 +31,14 @@ async function createTalkProposal(ctx) {
     const rdata = await db.speaker.createProposal(speakerSubmissionForm);
     ctx.status = 201;
     ctx.body = {
-      status: 'success',
+      status: "success",
       data: "MUCH SUCCESS VERY WOW"
     };
   } catch (e) {
     ctx.status = 400;
     ctx.body = {
-      status: 'error',
-      message: e.message || 'Sorry, an error has occurred.'
+      status: "error",
+      message: e.message || "Sorry, an error has occurred."
     };
   }
 }

@@ -6,6 +6,7 @@
 export const api = "http://localhost:3001/api";
 
 export function POST(url, payload) {
+  console.log("outgoing payload is", payload)
   return fetch(`${api}/${url}`, {
     method: "post",
     headers: {
