@@ -6,12 +6,6 @@ const bodyParser = require("koa-bodyparser");
 const app = new Koa();
 const db = require("./db");
 
-// -- Middleware ---------------------------------------------------------------
-
-app.use(bodyParser());
-app.use(logger());
-app.use(cors());
-
 // -- Routes -------------------------------------------------------------------
 
 const api = "/api";
@@ -21,7 +15,10 @@ router
   .get(`${api}/submissions`, getTalkProposals)
   .post(`${api}/speaker-submission`, createTalkProposal);
 
+app.use(cors());
 app.use(router.routes());
+app.use(bodyParser());
+app.use(logger());
 
 // -- Handlers -----------------------------------------------------------------
 
@@ -32,13 +29,13 @@ async function createTalkProposal(ctx) {
     ctx.status = 201;
     ctx.body = {
       status: 'success',
-      data: "THIS SHOULD WORK"
+      data: "MUCH SUCCESS VERY WOW"
     };
   } catch (e) {
     ctx.status = 400;
     ctx.body = {
       status: 'error',
-      message: err.message || 'Sorry, an error has occurred.'
+      message: e.message || 'Sorry, an error has occurred.'
     };
   }
 }

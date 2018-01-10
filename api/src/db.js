@@ -14,7 +14,7 @@ const speaker = {
   },
 
   createProposal(payload) {
-    return knex("submissions").insert(payload).returning("*");
+    return knex("submissions").insert(payload)
   }
 };
 
