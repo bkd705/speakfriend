@@ -27,10 +27,20 @@ app.use(router.routes());
 
 async function createTalkProposal(ctx) {
   const speakerSubmissionForm = ctx.request.body;
-  // LEAVING OFF: return data is empty + make sure speakerSubmission Form has correct fields.
-  const rdata = await db.speaker.createProposal(speakerSubmissionForm);
-  // submit to db and send back a success / failure res.
-  ctx.body = { data: rdata };
+  try {
+    const rdata = await db.speaker.createProposal(speakerSubmissionForm);
+    ctx.status = 201;
+    ctx.body = {
+      status: 'success',
+      data: "THIS SHOULD WORK"
+    };
+  } catch (e) {
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err.message || 'Sorry, an error has occurred.'
+    };
+  }
 }
 
 // I don't like these names yet.
