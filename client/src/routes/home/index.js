@@ -32,6 +32,7 @@ export default class Home extends Component {
 
   submitForm = async e => {
     e.preventDefault();
+
     const { errors, isValid } = this.validateForm(this.state.submissionForm)
     if (!isValid) {
       this.setState({ errors })
@@ -47,7 +48,6 @@ export default class Home extends Component {
       if (values[curr] === '') {
         acc[curr] = 'This field is required'
       }
-
       return acc
     }, {})
 
