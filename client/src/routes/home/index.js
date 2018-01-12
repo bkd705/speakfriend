@@ -85,7 +85,7 @@ export default class Home extends Component {
     return (
       <form class="flex flex-column mv5 w-50 center" onSubmit={this.submitForm}>
         <div class="flex flex-column mb4">
-          <label for="Email">Email address</label>
+          <label for="Email">Email address *</label>
           <input
             class="pa2"
             id="email"
@@ -98,7 +98,7 @@ export default class Home extends Component {
         </div>
 
         <div class="flex flex-column mb4">
-          <label for="name">What is your name?</label>
+          <label for="name">What is your name? *</label>
           <input
             class="pa2"
             id="name"
@@ -112,7 +112,7 @@ export default class Home extends Component {
 
         <div class="flex flex-column mb4">
           <label for="topics">
-            One or more topics you'd like to talk about
+            One or more topics you'd like to talk about *
           </label>
           <input
             class="pa2"
@@ -126,7 +126,7 @@ export default class Home extends Component {
         </div>
 
         <div class="flex flex-column mb4">
-          <label for="bio">Your Bio (optional, to put on RSVP pages)</label>
+          <label for="bio">Your Bio *</label>
           <textarea
             class="pa2"
             id="bio"
